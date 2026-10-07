@@ -11,6 +11,7 @@
    └─ guardrail.output           (PII redaction)
 """
 import json
+import os
 import uuid
 from typing import Optional
 
@@ -54,7 +55,8 @@ def _text(content) -> str:
 
 def default_llm():
     from langchain_google_genai import ChatGoogleGenerativeAI
-    return ChatGoogleGenerativeAI(model=config.GEMINI_MODEL, temperature=0, max_retries=2)
+    return ChatGoogleGenerativeAI(model=config.GEMINI_MODEL, temperature=0, max_retries=2,
+                                  timeout=float(os.getenv("LLM_REQUEST_TIMEOUT", "60")))
 
 
 def run_retention(customer_id: str, customer_message: str = "", llm=None,
