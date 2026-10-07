@@ -24,7 +24,7 @@ RISK_TIERS = [                    # (нижня межа score, tier, бюдже
 
 # ── Policy rails ─────────────────────────────────────────────
 BIG_DISCOUNT_RISK_THRESHOLD = 0.70   # нижче цього score знижка > 20% заборонена
-MAX_DISCOUNT_LOW_RISK_PCT = 20
+MAX_DISCOUNT_LOW_RISK_PCT = 50
 MAX_DISCOUNT_ABSOLUTE_PCT = 40
 HITL_MAX_FREE_MONTHS = 3             # > 3 безкоштовних місяців → ручна перевірка
 HITL_MAX_BONUS_USD = 500             # загальна цінність бонусу > $500 → ручна перевірка
