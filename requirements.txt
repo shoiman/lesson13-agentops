@@ -1,0 +1,19 @@
+# Lesson 13 — AgentOps & Reliability (Telco-Churn Retention Agent)
+langgraph>=1.2,<2
+langchain-core>=1.0,<2
+langchain-google-genai>=4.0,<5
+# Observability: Arize Phoenix (OpenTelemetry / OpenInference)
+arize-phoenix
+arize-phoenix-otel>=0.17
+openinference-instrumentation-langchain>=0.1.70
+# Guardrails
+guardrails-ai>=0.6
+# ML tool
+scikit-learn>=1.5
+pandas>=2.2
+joblib>=1.4
+# utils
+python-dotenv>=1.0
+requests>=2.32
+matplotlib>=3.8
+pytest>=8.0

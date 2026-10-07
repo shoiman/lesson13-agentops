@@ -1,0 +1,12 @@
+[
+  {"id": "RP-1", "tier": "high", "title": "Contract upgrade with discount",
+   "content": "Month-to-month high-risk customers: offer 25-35% discount for 6 months when switching to a one-year contract. Add free TechSupport if missing."},
+  {"id": "RP-2", "tier": "high", "title": "Fiber quality recovery",
+   "content": "Fiber optic customers with high bills: up to 1-2 free months plus OnlineSecurity bundle. Keep total bonus value below $500 unless approved by a manager."},
+  {"id": "RP-3", "tier": "medium", "title": "Loyalty bonus",
+   "content": "Medium-risk customers: 10-20% discount for 3 months or one free month of streaming bundle. Never exceed 20% discount."},
+  {"id": "RP-4", "tier": "low", "title": "Light-touch retention",
+   "content": "Low-risk customers: small gesture only — 5-10% discount for 1-2 months or a free add-on (OnlineBackup). Discounts above 20% are forbidden."},
+  {"id": "RP-5", "tier": "any", "title": "Escalation policy",
+   "content": "Any free period longer than 3 months or total bonus value above $500 requires manual review by a retention manager."}
+]
