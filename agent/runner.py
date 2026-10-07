@@ -105,6 +105,10 @@ def run_retention(customer_id: str, customer_message: str = "", llm=None,
                 except GraphRecursionError:
                     result.update(status="STEP_LIMIT", final_response=(
                         f"Run stopped: step limit {config.MAX_STEPS} reached. Partial result: offer={ctx.offer}"))
+                except Exception as e:  # noqa: BLE001 — graceful degradation (Tier 4: static response)
+                    result.update(status="LLM_UNAVAILABLE", error=f"{type(e).__name__}: {str(e)[:200]}",
+                                  final_response=("The retention assistant is temporarily unavailable. "
+                                                  "A retention manager will contact the customer; ticket created."))
 
             # 3) Output guardrail (PII)
             with tracer.start_as_current_span("guardrail.output") as g:

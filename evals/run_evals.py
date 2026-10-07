@@ -22,6 +22,8 @@ from agent.tools import _crm  # noqa: E402
 ACCURACY_THRESHOLD = float(os.getenv("EVAL_ACCURACY_THRESHOLD", "0.85"))
 RELEVANCE_THRESHOLD = float(os.getenv("EVAL_RELEVANCE_THRESHOLD", "0.90"))
 SLEEP_S = float(os.getenv("EVAL_SLEEP_S", "5"))
+MAX_ATTEMPTS = int(os.getenv("EVAL_MAX_ATTEMPTS", "4"))
+RETRY_SLEEP_S = float(os.getenv("EVAL_RETRY_SLEEP_S", "20"))
 
 
 def checks_for(case: dict, r: dict) -> dict:
@@ -53,7 +55,14 @@ def main() -> int:
     cases = json.loads((ROOT / "evals" / "golden_dataset.json").read_text(encoding="utf-8"))
     rows = []
     for i, case in enumerate(cases):
-        r = run_retention(case["customer_id"], case["message"])
+        # 503/429 від провайдера — це інфраструктура, а не регресія агента: retry з backoff
+        for attempt in range(1, MAX_ATTEMPTS + 1):
+            r = run_retention(case["customer_id"], case["message"])
+            if r["status"] != "LLM_UNAVAILABLE":
+                break
+            print(f"       ↻ {case['id']}: LLM unavailable ({r.get('error', '')[:80]}), "
+                  f"retry {attempt}/{MAX_ATTEMPTS} in {RETRY_SLEEP_S * attempt:.0f}s")
+            time.sleep(RETRY_SLEEP_S * attempt)
         c = checks_for(case, r)
         passed = all(c.values())
         rows.append({"id": case["id"], "passed": passed, "checks": c, "status": r["status"],
